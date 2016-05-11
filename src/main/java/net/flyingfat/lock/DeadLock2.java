@@ -45,5 +45,4 @@ public class DeadLock2 {
     		lockA.unlock();
     	}
     }	
-
 }
