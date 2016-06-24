@@ -27,7 +27,7 @@ public class FileLockTest2 {
 		try{
 			File file=new File(this.getClass().getResource("/config.properties").getFile());
 			RandomAccessFile rwfile=new RandomAccessFile(file,"r");
-			Thread.sleep(1000);
+			Thread.sleep(20000);
 			System.out.println(rwfile.readLine());
 			rwfile.close();
 		}catch(Exception e){

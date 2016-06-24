@@ -21,7 +21,6 @@ public class FileLockTest {
 		}).start();
 		
 	}
-
 	
 	public void rw() {
 		try{
