@@ -2,17 +2,22 @@ package net.flyingfat.serialization;
 
 import java.io.Serializable;
 
-public class Object1 extends Super implements Serializable {
+public class Object11 extends Super implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	private String bac="abc";
+	private String acb="abc";
 	private int a=123;
 	
-	public String getBac() {
-		return bac;
+	public Object11(String s) {
+		super(s);
 	}
-
-	public void setBac(String bac) {
-		this.bac = bac;
+	
+	public String getAcb() {
+		return acb;
+	}
+	
+	public void setAcb(String acb) {
+		this.acb = acb;
 	}
 
 	public int getA() {
@@ -24,4 +29,3 @@ public class Object1 extends Super implements Serializable {
 	}
 	
 }
-

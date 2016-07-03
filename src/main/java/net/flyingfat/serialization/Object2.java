@@ -4,15 +4,11 @@ import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-import java.io.Serializable;
 
-public class Object2 implements Externalizable {
-
-	/**
-	 * 
-	 */
+public class Object2  implements Externalizable {
 	private static final long serialVersionUID = 1L;
-	private String bac;
+	private String bac="123";
+	private int a;
 
 	public String getBac() {
 		return bac;
@@ -24,13 +20,21 @@ public class Object2 implements Externalizable {
 
 	@Override
 	public void writeExternal(ObjectOutput out) throws IOException {
-		
+		out.write(bac.getBytes("utf-8"));
 	}
 
 	@Override
 	public void readExternal(ObjectInput in) throws IOException,
 			ClassNotFoundException {
-		
+		in.readObject();
+	}
+
+	public int getA() {
+		return a;
+	}
+
+	public void setA(int a) {
+		this.a = a;
 	}
 	
 }

@@ -14,29 +14,22 @@ import java.net.URL;
 public class ObjectTest {
 
 	public static void main(String[] args) throws Exception {
-
-		//new ObjectTest().output();
-		
-		new ObjectTest().input();
-
+		new ObjectTest().serialization();
 	}
 	
-	public void output() throws Exception{
+	public void serialization() throws Exception{
 		URL url=ObjectTest.class.getResource("/config.properties");
 		OutputStream output=new FileOutputStream(new File(url.getPath()));
 		ObjectOutput objectOut=new ObjectOutputStream(output);
 		objectOut.writeObject(new Object1());
 		objectOut.close();
 		output.close();
+		
+		/*URL url2=ObjectTest.class.getResource("/config2.properties");
+		OutputStream output2=new FileOutputStream(new File(url2.getPath()));
+		ObjectOutput objectOut2=new ObjectOutputStream(output2);
+		objectOut2.writeObject(new Object2());
+		objectOut2.close();
+		objectOut2.close();*/
 	}
-	
-	public void input() throws Exception{
-		URL url=ObjectTest.class.getResource("/config.properties");
-		InputStream input=new FileInputStream(new File(url.getPath()));
-		ObjectInput objectIn=new ObjectInputStream(input);
-		Object1 object1=(Object1) objectIn.readObject();
-		objectIn.close();
-		input.close();
-	}
-	
 }

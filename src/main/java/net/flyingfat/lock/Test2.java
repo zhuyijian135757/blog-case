@@ -9,7 +9,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class Test {
+public class Test2 {
 	
 	
 	
@@ -24,20 +24,19 @@ public class Test {
 		//FileChannel fileChannel=input.getChannel();
 		//fileChannel.read(ByteBuffer.allocate(1024));
 		//FileInputStream file=new FileInputStream(new File());
-		read();
+		//write();
 		
 	}
 	
 	
-	public static void read() throws Exception{
-		FileInputStream input=new FileInputStream("E:\\git\\blog-case\\blog-case\\src\\main\\resources\\config.properties");
-		int len=0;
-		while((len=input.read())!=-1){
-			System.out.println("read:"+len);
-			Thread.sleep(1000);
+
+	
+	public static void write() throws Exception{
+		FileOutputStream output=new FileOutputStream("E:\\git\\blog-case\\blog-case\\src\\main\\resources\\config.properties");
+		for(int i=0;i<100000;i++){
+			output.write(i);
+			Thread.sleep(100);
 		}
 	}
-	
-
 
 }
