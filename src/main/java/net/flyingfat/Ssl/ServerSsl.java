@@ -17,6 +17,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
 public class ServerSsl {
@@ -42,33 +43,34 @@ public class ServerSsl {
 	// 配置了证书, 所以不会抛出异常
 	public static void sslSocketServer() throws Exception {
 
-		// key store相关信息
-		String keyName = "cmkey";
-		char[] keyStorePwd = "123456".toCharArray();
+		/*String keyName = "cmkey";
 		char[] keyPwd = "123456".toCharArray();
 		KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
-
-		// 装载当前目录下的key store. 可用jdk中的keytool工具生成keystore
 		InputStream in = null;
-		keyStore.load(in = ServerSsl.class.getClassLoader().getResourceAsStream(
-				keyName), keyPwd);
+		keyStore.load(in = ServerSsl.class.getClassLoader().getResourceAsStream(keyName), keyPwd);
 		in.close();
+		KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+		kmf.init(keyStore, keyPwd);*/
+		
+		KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
+		TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
+		KeyStore ks = KeyStore.getInstance("JKS");
+		KeyStore tks = KeyStore.getInstance("JKS");
+		ks.load(ServerSsl.class.getClassLoader().getResourceAsStream("kserver.keystore"), "123456".toCharArray());
+		tks.load(ServerSsl.class.getClassLoader().getResourceAsStream("tserver.keystore"), "123456".toCharArray());
+		
+		kmf.init(ks, "123456".toCharArray());
+		tmf.init(tks);
 
-		// 初始化key manager factory
-		KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory
-				.getDefaultAlgorithm());
-		kmf.init(keyStore, keyPwd);
-
-		// 初始化ssl context
 		SSLContext context = SSLContext.getInstance("SSL");
-		context.init(kmf.getKeyManagers(),
-				new TrustManager[] { new MyX509TrustManager() },
-				new SecureRandom());
-
+		context.init(kmf.getKeyManagers(),tmf.getTrustManagers(),new SecureRandom());
+		
 		// 监听和接收客户端连接
 		SSLServerSocketFactory factory = context.getServerSocketFactory();
 		SSLServerSocket server = (SSLServerSocket) factory
 				.createServerSocket(10002);
+		server.setNeedClientAuth(true);
+		
 		System.out.println("ok");
 		Socket client = server.accept();
 		System.out.println(client.getRemoteSocketAddress());

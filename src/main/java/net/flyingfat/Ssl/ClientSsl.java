@@ -5,13 +5,16 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.security.KeyStore;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
+import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
 
 public class ClientSsl {
 
@@ -67,10 +70,28 @@ public class ClientSsl {
 
 	// 这种情况是使用空证书??
 	public static void sslSocket2() throws Exception {
+		
+		/*String keyName = "cmkey";
+		char[] keyPwd = "123456".toCharArray();
+		KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+		InputStream in = null;
+		keyStore.load(in = ServerSsl.class.getClassLoader().getResourceAsStream(keyName), keyPwd);
+		in.close();
+		KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+		kmf.init(keyStore, keyPwd);*/
+		
+		KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
+		TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
+		KeyStore ks = KeyStore.getInstance("JKS");
+		KeyStore tks = KeyStore.getInstance("JKS");
+		ks.load(ServerSsl.class.getClassLoader().getResourceAsStream("kclient.keystore"), "123456".toCharArray());
+		tks.load(ServerSsl.class.getClassLoader().getResourceAsStream("tclient.keystore"), "123456".toCharArray());
+		
+		kmf.init(ks, "123456".toCharArray());
+		tmf.init(tks);
+		
 		SSLContext context = SSLContext.getInstance("SSL");
-		context.init(null,
-				new TrustManager[] { new ServerSsl.MyX509TrustManager() },
-				new SecureRandom());
+		context.init(kmf.getKeyManagers(),tmf.getTrustManagers(),new SecureRandom());
 		SSLSocketFactory factory = context.getSocketFactory();
 		SSLSocket s = (SSLSocket) factory.createSocket("localhost", 10002);
 		System.out.println("ok");
