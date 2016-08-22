@@ -1,4 +1,4 @@
-package net.flyinfat.encrypt;
+package net.flyingfat.encrypt;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 public class DESUtil {
 	private static final Logger logger = LoggerFactory.getLogger(DESUtil.class);
-	public static final String PASSWORD_CRYPT_KEY = "secretkey";
+	public static final String PASSWORD_CRYPT_KEY = "secretkey"; //秘钥大于8位
 	private static final String algorithm = "DES/ECB/NoPadding";
 
 	public static byte[] encrypt(byte[] src, byte[] key) throws Exception {
@@ -53,8 +53,8 @@ public class DESUtil {
 
 	public static void main(String[] argv) throws Exception {
 		String source = "its a secretkey!";
-		byte[] encrypted = encrypt(source.getBytes(), "secretkey1".getBytes());
-		byte[] decrypted = decrypt(encrypted, "secretkey1".getBytes());
+		byte[] encrypted = encrypt(source.getBytes(), "liuliangchongzhi".getBytes());
+		byte[] decrypted = decrypt(encrypted, "liuliangchongzhi".getBytes());
 		
 		System.out.println("source:" + source);
 		System.out.println("encrypted:" + StringUtil.byte2Hex(encrypted));

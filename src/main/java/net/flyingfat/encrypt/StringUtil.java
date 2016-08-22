@@ -1,4 +1,4 @@
-package net.flyinfat.encrypt;
+package net.flyingfat.encrypt;
 
 import java.util.Arrays;
 

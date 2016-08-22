@@ -84,8 +84,8 @@ public class ClientSsl {
 		TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
 		KeyStore ks = KeyStore.getInstance("JKS");
 		KeyStore tks = KeyStore.getInstance("JKS");
-		ks.load(ServerSsl.class.getClassLoader().getResourceAsStream("kclient.keystore"), "123456".toCharArray());
-		tks.load(ServerSsl.class.getClassLoader().getResourceAsStream("tclient.keystore"), "123456".toCharArray());
+		ks.load(ServerSsl.class.getClassLoader().getResourceAsStream("ks/kclient.keystore"), "123456".toCharArray());
+		tks.load(ServerSsl.class.getClassLoader().getResourceAsStream("ks/tclient.keystore"), "123456".toCharArray());
 		
 		kmf.init(ks, "123456".toCharArray());
 		tmf.init(tks);

@@ -1,4 +1,4 @@
-package net.flyinfat.encrypt;
+package net.flyingfat.encrypt;
 
 import java.security.Key;
 import java.security.MessageDigest;
@@ -13,7 +13,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class AESUtil {
 
-	private static String key = "liuliangchongzhi"; // 对称秘钥
+	private static String key = "liuliangchongzhi"; // 对称秘钥  固定16位
 	private static String iv = "aabbccddeeffgghh"; // 初始化向量
 	private static final String HEX_CHARS = "0123456789abcdef";
 	private static Key keySpec = new SecretKeySpec(key.getBytes(), "AES");
@@ -59,11 +59,24 @@ public class AESUtil {
 	}
 
 	public static void main(String[] args) throws Exception {
-		String plainText = "{\"cpId\":\"1111\",channelOrderId:\"20160728100\",\"phone\":\"13575712492\","
+		/*String plainText = "{\"cpId\":\"1111\",channelOrderId:\"20160728100\",\"phone\":\"13575712492\","
 				+ "goodsId:\"100\",\"createTime\":\"20160728094900\",\"notifyUrl\":\"http://host:port/\"}";
 		byte[] b = encrypt(plainText);
 		System.out.println(decrypt(b));
-		System.out.println(getShaMsg(b));
+		System.out.println(getShaMsg(b));*/
+		
+		long start=System.currentTimeMillis();
+		String plainText = "9876jklo8881sdfadfasfasfl23451adfadsfasdfasdfasdfasdfasdfggfdhdfgdfdfgdsfgsdfgsdfgsdfgsdfgdfg6";
+		String key = "liuliangchongzhi"; // 对称秘钥
+		String iv = "aabbccddeeffgghh"; // 初始化向量
+		Key keySpec = new SecretKeySpec(key.getBytes(), "AES");
+		IvParameterSpec ivSpec = new IvParameterSpec(iv.getBytes());
+		
+		Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+		cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec);
+		byte[] b = cipher.doFinal(plainText.getBytes("utf-8"));
+		long end=System.currentTimeMillis();
+		System.out.println(end-start);
 	}
 
 }

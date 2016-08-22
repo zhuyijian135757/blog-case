@@ -56,8 +56,8 @@ public class ServerSsl {
 		TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
 		KeyStore ks = KeyStore.getInstance("JKS");
 		KeyStore tks = KeyStore.getInstance("JKS");
-		ks.load(ServerSsl.class.getClassLoader().getResourceAsStream("kserver.keystore"), "123456".toCharArray());
-		tks.load(ServerSsl.class.getClassLoader().getResourceAsStream("tserver.keystore"), "123456".toCharArray());
+		ks.load(ServerSsl.class.getClassLoader().getResourceAsStream("ks/kserver.keystore"), "123456".toCharArray());
+		tks.load(ServerSsl.class.getClassLoader().getResourceAsStream("ks/tserver.keystore"), "123456".toCharArray());
 		
 		kmf.init(ks, "123456".toCharArray());
 		tmf.init(tks);
@@ -69,7 +69,7 @@ public class ServerSsl {
 		SSLServerSocketFactory factory = context.getServerSocketFactory();
 		SSLServerSocket server = (SSLServerSocket) factory
 				.createServerSocket(10002);
-		server.setNeedClientAuth(true);
+		//server.setNeedClientAuth(true);
 		
 		System.out.println("ok");
 		Socket client = server.accept();
