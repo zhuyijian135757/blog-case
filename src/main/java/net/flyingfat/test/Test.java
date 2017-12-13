@@ -141,6 +141,7 @@ public static void main(String[] args) {
         System.out.println("解密后：" + decrypt);   */         
         System.out.println("gittt");
         System.out.println("git");
+	    System.out.println("gitxxxxx");
         
         System.out.println("gittttt");
         
