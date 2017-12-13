@@ -139,13 +139,8 @@ public static void main(String[] args) {
         System.out.println("加密后：" + encrypt.getBytes().length);
         String decrypt = decrypt(encrypt, apiKey);
         System.out.println("解密后：" + decrypt);   */         
-<<<<<<< HEAD
         System.out.println("gittt");
         System.out.println("git");
-=======
-	    
-	System.out.println("git");
->>>>>>> branch 'master' of https://github.com/zhuyijian135757/blog-case.git
     }
     catch (Exception e) {
         e.printStackTrace();
