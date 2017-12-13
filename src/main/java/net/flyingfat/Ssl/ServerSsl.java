@@ -25,6 +25,7 @@ public class ServerSsl {
 	public static void main(String[] args) throws Exception {
 		// notOk();
 		sslSocketServer();
+		
 	}
 
 	// 抛出异常
